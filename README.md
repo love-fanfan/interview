@@ -296,17 +296,36 @@ assert( p != NULL );    // assert 不可用
 设定结构体、联合以及类成员变量以 n 字节方式对齐
 
 #pragma pack(n) 使用
+使用#pragma pack(n)设定变量以n字节对齐时，存在两种形式：
+1. n大于该变量所占字节数，偏移量使用默认的对齐方式；
+2. n小于该变量所占字节数，偏移量为n的倍数。
+
+而结构整体的对齐，则按照结构体中最大的数据成员和#pragma pack指定值之间，**较小**的那个进行。
 
 ```cpp
 #pragma pack(push)  // 保存对齐状态
 #pragma pack(4)     // 设定为 4 字节对齐
 
-struct test
+struct test1
 {
-    char m1;
-    double m4;
-    int m3;
+    char m1; // char为1字节 [0]
+    int m4; // int为4字节 [4, 7]
+    short m3; // short为2字节 [8, 9]
 };
+//sizeof test1 = 12 (原本空间为10，对结构体4对齐min(4, 4))
+
+#pragma pack(pop)   // 恢复对齐状态
+
+#pragma pack(push)  // 保存对齐状态
+#pragma pack(2)     // 设定为 4 字节对齐
+
+struct test2
+{
+    char m1; // char为1字节 [0]
+    int m4; // int为4字节 [2, 5]
+    short m3; // short为2字节 [6, 7]
+};
+//sizeof test2 = 8 (结构体2对齐min(2,4))
 
 #pragma pack(pop)   // 恢复对齐状态
 ```
