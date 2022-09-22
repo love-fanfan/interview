@@ -1087,6 +1087,9 @@ std::auto_ptr<std::string> ps (new std::string(str))；
 3. weak_ptr
 4. auto_ptr（被 C++11 弃用）
 
+> [C++11 shared_ptr智能指针(C语言中文网）](http://c.biancheng.net/view/7898.html)
+> [如何理解智能指针？（知乎）](https://www.zhihu.com/question/20368881)
+
 * Class shared_ptr 实现共享式拥有（shared ownership）概念。多个智能指针指向相同对象，该对象和其相关资源会在 “最后一个 reference 被销毁” 时被释放。为了在结构较复杂的情景中执行上述工作，标准库提供 weak_ptr、bad_weak_ptr 和 enable_shared_from_this 等辅助类。
 * Class unique_ptr 实现独占式拥有（exclusive ownership）或严格拥有（strict ownership）概念，保证同一时间内只有一个智能指针可以指向该对象。你可以移交拥有权。它对于避免内存泄漏（resource leak）——如 new 后忘记 delete ——特别有用。
 
@@ -1100,7 +1103,7 @@ std::auto_ptr<std::string> ps (new std::string(str))；
 
 weak_ptr 允许你共享但不拥有某对象，一旦最末一个拥有该对象的智能指针失去了所有权，任何 weak_ptr 都会自动成空（empty）。因此，在 default 和 copy 构造函数之外，weak_ptr 只提供 “接受一个 shared_ptr” 的构造函数。
 
-* 可打破环状引用（cycles of references，两个其实已经没有被使用的对象彼此互指，使之看似还在 “被使用” 的状态）的问题
+* 可打破[环状引用](https://blog.csdn.net/zrh_CSDN/article/details/81053215)（cycles of references，两个其实已经没有被使用的对象彼此互指，使之看似还在 “被使用” 的状态）的问题
 
 ##### unique_ptr
 
