@@ -1668,6 +1668,8 @@ typedef struct BiTNode
     * LR型：根的左孩子左旋，再右旋
     * RL型：右孩子的左子树，先右旋，再左旋
 
+[失衡二叉树的调整方法（CSDN）](https://blog.csdn.net/wangxiaotongfan/article/details/51516430)
+
 ### 其他树及森林
 
 #### 树的存储结构
